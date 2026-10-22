@@ -1,8 +1,6 @@
 <script setup>
 import { computed, ref } from 'vue'
-import PageHeader from '@/components/layout/PageHeader.vue'
 import BaseCard from '@/components/ui/BaseCard.vue'
-import BaseModal from '@/components/ui/BaseModal.vue'
 import BaseTabs from '@/components/ui/BaseTabs.vue'
 
 const showGuide = ref(false)
@@ -27,11 +25,11 @@ const knowledge = [
   { group: '基础', point: '条件渲染 v-if / v-else', where: 'WeatherIcon.vue', note: '按天气代码切换不同图形' },
   { group: '基础', point: '列表渲染 v-for + key', where: 'ForecastStrip.vue · CityPicker.vue', note: '7 天预报、城市列表、表格行' },
   { group: '基础', point: '事件与修饰符', where: 'FavoriteButton.vue · TrendChart.vue', note: '.stop.prevent 阻止冒泡，.passive 优化滚动' },
-  { group: '基础', point: '表单 v-model', where: 'SearchInput.vue · TrendView.vue', note: '搜索框、下拉选择、范围切换' },
+  { group: '基础', point: '表单 v-model', where: 'CompareView.vue · TrendView.vue', note: '搜索框、下拉选择、范围切换' },
   { group: '组件', point: 'defineProps 校验', where: '全部业务组件', note: 'type / default / required 约束外部输入' },
   { group: '组件', point: '自定义事件 emit', where: 'CityPicker.vue', note: 'update:modelValue 与 change 两个事件' },
-  { group: '组件', point: '组件 v-model', where: 'BaseTabs.vue · SearchInput.vue', note: 'defineModel() 语法糖，读写一体' },
-  { group: '组件', point: '插槽 slot', where: 'BaseCard.vue · BaseModal.vue', note: '默认插槽 + 具名插槽 actions / footer' },
+  { group: '组件', point: '组件 v-model', where: 'BaseTabs.vue', note: 'defineModel() 语法糖，读写一体' },
+  { group: '组件', point: '插槽 slot', where: 'BaseCard.vue · StatCard.vue', note: '默认插槽 + 具名插槽 actions / footer' },
   { group: '组件', point: '属性透传', where: 'BaseCard.vue', note: 'class / style 自动落到根元素' },
   { group: '组件', point: '动态组件 component :is', where: 'App.vue', note: 'RouterView 插槽里渲染当前路由组件' },
   { group: '组件', point: '异步组件', where: 'TrendView.vue', note: 'defineAsyncComponent + 骨架屏 + 超时' },
@@ -43,7 +41,7 @@ const knowledge = [
   { group: '进阶', point: '路由懒加载与守卫', where: 'router/index.js', note: '() => import() 分包、afterEach 改标题、scrollBehavior' },
   { group: '进阶', point: 'Pinia 状态管理', where: 'stores/city.js · stores/trend.js', note: '收藏城市、最近浏览、趋势偏好' },
   { group: '进阶', point: 'provide / inject', where: 'App.vue → useToast.js', note: '根组件下发全局提示服务' },
-  { group: '进阶', point: 'Teleport / Transition', where: 'BaseModal.vue · AppToast.vue', note: '传送门 + 进出场动画 + TransitionGroup' },
+  { group: '进阶', point: 'Teleport / Transition', where: 'App.vue', note: 'Toast 用 Teleport 传送到 body，配合 TransitionGroup' },
   { group: '进阶', point: 'KeepAlive 缓存', where: 'App.vue', note: 'include 精确缓存对比页，保留筛选状态' },
   { group: '进阶', point: '性能与健壮性', where: 'api/openMeteo.js', note: '5 分钟缓存、请求超时、竞态序号、离线降级' },
 ]
@@ -52,24 +50,16 @@ const componentGroups = [
   {
     name: '布局组件',
     items: [
+      { file: 'App.vue', role: '根组件：页脚、全局提示、页面过渡' },
       { file: 'AppHeader.vue', role: '吸顶导航，路由高亮' },
-      { file: 'AppFooter.vue', role: '页脚与数据来源说明' },
-      { file: 'PageHeader.vue', role: '页面标题区，actions 插槽' },
     ],
   },
   {
     name: '基础组件',
     items: [
       { file: 'BaseCard.vue', role: '通用卡片容器，具名插槽' },
-      { file: 'StatCard.vue', role: '指标卡，支持自定义强调色' },
-      { file: 'AnimatedNumber.vue', role: '数字滚动动画' },
+      { file: 'StatCard.vue', role: '指标卡 + 数字滚动' },
       { file: 'BaseTabs.vue', role: '标签切换，v-model' },
-      { file: 'BaseModal.vue', role: '弹窗，Teleport + ESC 关闭' },
-      { file: 'AppToast.vue', role: '全局轻提示，TransitionGroup' },
-      { file: 'BaseSkeleton.vue', role: '骨架屏占位' },
-      { file: 'ChartSkeleton.vue', role: '图表加载态' },
-      { file: 'EmptyState.vue', role: '空状态与引导操作' },
-      { file: 'SearchInput.vue', role: '搜索输入框，可清空' },
     ],
   },
   {
@@ -81,15 +71,13 @@ const componentGroups = [
       { file: 'CurrentWeather.vue', role: '实况主卡，三态渲染' },
       { file: 'AqiGauge.vue', role: '空气质量半圆仪表盘' },
       { file: 'ForecastStrip.vue', role: '7 天温度区间条' },
-      { file: 'CityCompareTable.vue', role: '可排序对比表格' },
     ],
   },
   {
     name: '图表与页面',
     items: [
       { file: 'TrendChart.vue', role: '手写 SVG 折线图 + 悬浮提示' },
-      { file: 'CompareBars.vue', role: '横向条形排行' },
-      { file: 'HomeView.vue', role: '概览页' },
+      { file: 'HomeView.vue', role: '概览页（含对比表格与排行条）' },
       { file: 'CompareView.vue', role: '城市对比页（KeepAlive 缓存）' },
       { file: 'TrendView.vue', role: '趋势分析页' },
       { file: 'CityDetailView.vue', role: '城市详情页（动态路由）' },
@@ -99,7 +87,7 @@ const componentGroups = [
 ]
 
 const totalComponents = computed(() =>
-  componentGroups.reduce((sum, group) => sum + group.items.length, 0) + 1, // + App.vue
+  componentGroups.reduce((sum, group) => sum + group.items.length, 0),
 )
 
 const groupedKnowledge = computed(() => {
@@ -129,18 +117,51 @@ const talkOutline = [
 
 <template>
   <div class="container">
-    <PageHeader
-      eyebrow="About"
-      title="关于这个项目"
-      description="一个纯前端的城市空气与气象可视化平台。没有后端、没有数据库，所有数据来自开放接口，所有图形由代码画出来。"
-    >
-      <template #actions>
-        <button type="button" class="btn btn--primary btn--sm" @click="showGuide = true">运行与部署</button>
+    <header class="page-header">
+      <div class="page-header-text">
+        <p class="eyebrow">About</p>
+        <h1>关于这个项目</h1>
+        <p class="description">
+          一个纯前端的城市空气与气象可视化平台。没有后端、没有数据库，所有数据来自开放接口，所有图形由代码画出来。
+        </p>
+      </div>
+      <div class="page-header-actions">
+        <button type="button" class="btn btn--primary btn--sm" @click="showGuide = !showGuide">
+          {{ showGuide ? '收起说明' : '运行与部署' }}
+        </button>
         <a href="https://cn.vuejs.org/tutorial/" target="_blank" rel="noreferrer" class="btn btn--ghost btn--sm">
           Vue 官方教程
         </a>
-      </template>
-    </PageHeader>
+      </div>
+    </header>
+
+    <!-- 运行与部署：原弹窗改成页内展开面板，减少一个组件也能一眼看到 -->
+    <Transition name="expand">
+      <section v-if="showGuide" class="guide-panel card">
+        <div class="guide-head">
+          <h3>本地运行与公网部署</h3>
+          <button type="button" class="guide-close" aria-label="收起说明" @click="showGuide = false">×</button>
+        </div>
+        <p class="modal-lead">项目是标准的 Vite 工程，Node.js 18+ 即可运行。</p>
+        <ul class="run-list">
+          <li v-for="step in runSteps" :key="step.cmd">
+            <code>{{ step.cmd }}</code>
+            <span>{{ step.desc }}</span>
+          </li>
+        </ul>
+
+        <h4 class="modal-title">部署到 Netlify</h4>
+        <ol class="deploy-list">
+          <li>执行 <code>npm run build</code>，得到 <code>dist/</code> 目录。</li>
+          <li>打开 <code>app.netlify.com/drop</code>，把整个 <code>dist</code> 文件夹拖进去。</li>
+          <li>Netlify 会生成形如 <code>https://xxx.netlify.app</code> 的公网地址。</li>
+          <li>
+            项目已内置 <code>netlify.toml</code> 与 <code>public/_redirects</code>，
+            <code>/compare</code> 等前端路由刷新不会 404。
+          </li>
+        </ol>
+      </section>
+    </Transition>
 
     <section class="grid grid--3 section--tight">
       <BaseCard title="项目定位" subtitle="课程实验 · 纯前端">
@@ -157,7 +178,7 @@ const talkOutline = [
       </BaseCard>
       <BaseCard title="代码规模" subtitle="以组件为单位">
         <p class="big-number">{{ totalComponents }}<small> 个 SFC</small></p>
-        <p class="body-text muted">5 个页面 + 22 个可复用组件 + 根组件</p>
+        <p class="body-text muted">5 个页面 + 11 个可复用组件 + 根组件</p>
       </BaseCard>
     </section>
 
@@ -260,10 +281,10 @@ const talkOutline = [
 ├── api/openMeteo.js          # 接口封装：缓存、超时、降级
 ├── assets/styles/main.css    # 设计系统：变量、布局、动效
 ├── components/
-│   ├── charts/               # TrendChart、CompareBars
-│   ├── layout/               # AppHeader、AppFooter、PageHeader
-│   ├── ui/                   # 10 个基础组件
-│   └── weather/              # 7 个业务组件
+│   ├── charts/               # TrendChart
+│   ├── layout/               # AppHeader
+│   ├── ui/                   # BaseCard、StatCard、BaseTabs
+│   └── weather/              # 6 个业务组件
 ├── composables/              # useWeather / useLocalStorage / useCountUp / useMediaQuery / useToast
 ├── data/                     # cities / metrics / mock
 ├── directives/index.js       # v-reveal、v-click-outside
@@ -288,31 +309,6 @@ const talkOutline = [
         </div>
       </div>
     </section>
-
-    <BaseModal v-model="showGuide" title="本地运行与公网部署" width="620px">
-      <p class="modal-lead">项目是标准的 Vite 工程，Node.js 18+ 即可运行。</p>
-      <ul class="run-list">
-        <li v-for="step in runSteps" :key="step.cmd">
-          <code>{{ step.cmd }}</code>
-          <span>{{ step.desc }}</span>
-        </li>
-      </ul>
-
-      <h4 class="modal-title">部署到 Netlify</h4>
-      <ol class="deploy-list">
-        <li>执行 <code>npm run build</code>，得到 <code>dist/</code> 目录。</li>
-        <li>打开 <code>app.netlify.com/drop</code>，把整个 <code>dist</code> 文件夹拖进去。</li>
-        <li>Netlify 会生成形如 <code>https://xxx.netlify.app</code> 的公网地址。</li>
-        <li>
-          项目已内置 <code>netlify.toml</code> 与 <code>public/_redirects</code>，
-          <code>/compare</code> 等前端路由刷新不会 404。
-        </li>
-      </ol>
-
-      <template #footer>
-        <button type="button" class="btn btn--primary btn--sm" @click="showGuide = false">知道了</button>
-      </template>
-    </BaseModal>
   </div>
 </template>
 
@@ -535,6 +531,53 @@ const talkOutline = [
   font-size: 0.86rem;
   color: var(--text-2);
   margin-bottom: 12px;
+}
+
+/* 部署说明面板（原 BaseModal 弹窗改成页内展开） */
+.guide-panel {
+  margin-bottom: 8px;
+  padding: 20px 22px;
+}
+
+.guide-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.guide-head h3 {
+  font-size: 1rem;
+}
+
+.guide-close {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--text-2);
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.guide-close:hover {
+  background: var(--surface-3);
+}
+
+.expand-enter-active,
+.expand-leave-active {
+  transition: opacity 0.22s ease, transform 0.22s ease;
+}
+
+.expand-enter-from,
+.expand-leave-to {
+  opacity: 0;
+  transform: translateY(-8px);
 }
 
 .modal-title {

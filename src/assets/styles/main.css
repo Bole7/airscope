@@ -411,6 +411,68 @@ ul {
   background: transparent;
 }
 
+/* ---------- 页面标题区 ---------- */
+.page-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 46px 0 26px;
+  flex-wrap: wrap;
+}
+
+.page-header h1 {
+  font-size: clamp(1.8rem, 3.4vw, 2.6rem);
+  margin-top: 8px;
+}
+
+.page-header .description {
+  margin-top: 12px;
+  max-width: 620px;
+  color: var(--text-2);
+  font-size: 0.95rem;
+}
+
+.page-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* ---------- 空状态 ---------- */
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 40px 20px;
+  text-align: center;
+  color: var(--muted);
+}
+
+.empty-title {
+  font-size: 0.92rem;
+  color: var(--text-2);
+  font-weight: 560;
+}
+
+.empty-desc {
+  font-size: 0.82rem;
+  max-width: 320px;
+}
+
+.empty .btn {
+  margin-top: 10px;
+}
+
+/* ---------- 图表加载占位 ---------- */
+.chart-placeholder {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 0;
+}
+
 /* ---------- 路由 / 页面过渡 ---------- */
 .page-enter-active,
 .page-leave-active {

@@ -1,8 +1,6 @@
 <script setup>
 import { computed } from 'vue'
 import WeatherIcon from './WeatherIcon.vue'
-import AnimatedNumber from '@/components/ui/AnimatedNumber.vue'
-import BaseSkeleton from '@/components/ui/BaseSkeleton.vue'
 import { describeWeather, windDirection, windLevel } from '@/utils/weather'
 import { formatClock, formatDateShort, formatWeekday } from '@/utils/format'
 
@@ -28,10 +26,10 @@ const source = computed(() => props.data?.source || 'demo')
   <article class="current-card">
     <template v-if="loading && !current">
       <div class="stack">
-        <BaseSkeleton width="120px" height="12px" />
-        <BaseSkeleton width="180px" height="34px" />
-        <BaseSkeleton width="100%" height="120px" radius="16px" />
-        <BaseSkeleton width="100%" height="52px" radius="12px" />
+        <div class="skeleton" style="width: 120px; height: 12px" />
+        <div class="skeleton" style="width: 180px; height: 34px" />
+        <div class="skeleton" style="width: 100%; height: 120px; border-radius: 16px" />
+        <div class="skeleton" style="width: 100%; height: 52px; border-radius: 12px" />
       </div>
     </template>
 
@@ -53,7 +51,7 @@ const source = computed(() => props.data?.source || 'demo')
       <div class="current-main">
         <div class="temp-block">
           <div class="temp-row">
-            <span class="temp"><AnimatedNumber :value="current.temperature" :decimals="0" /></span>
+            <span class="temp">{{ current.temperature?.toFixed(0) ?? '—' }}</span>
             <span class="degree">°C</span>
           </div>
           <p class="condition">{{ condition.text }}，体感 {{ current.apparent?.toFixed(0) }}°</p>

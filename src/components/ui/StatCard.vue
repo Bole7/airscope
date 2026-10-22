@@ -1,6 +1,6 @@
 <script setup>
 import { computed } from 'vue'
-import AnimatedNumber from './AnimatedNumber.vue'
+import { useCountUp } from '@/composables/useCountUp'
 
 const props = defineProps({
   label: { type: String, required: true },
@@ -13,6 +13,23 @@ const props = defineProps({
 })
 
 const toneColor = computed(() => props.accentColor || `var(--${props.tone === 'default' ? 'text' : props.tone})`)
+
+// 数值可能是 null / undefined / '—'，先归一化再交给滚动动画
+const numeric = computed(() => {
+  const raw = props.value
+  if (raw === null || raw === undefined || raw === '') return null
+  const parsed = Number(raw)
+  return Number.isFinite(parsed) ? parsed : null
+})
+
+const animated = useCountUp(() => numeric.value ?? 0, {
+  duration: 900,
+  decimals: props.decimals,
+})
+
+const display = computed(() =>
+  numeric.value === null ? '—' : animated.value.toFixed(props.decimals),
+)
 </script>
 
 <template>
@@ -23,7 +40,7 @@ const toneColor = computed(() => props.accentColor || `var(--${props.tone === 'd
     </div>
 
     <p class="stat-value">
-      <AnimatedNumber :value="value" :decimals="decimals" />
+      <span class="tnum">{{ display }}</span>
       <span v-if="unit" class="stat-unit">{{ unit }}</span>
     </p>
 

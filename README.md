@@ -45,10 +45,10 @@ src/
 ├── api/openMeteo.js          # 接口封装：缓存、超时、降级、字段归一化
 ├── assets/styles/main.css    # 设计系统：CSS 变量、布局、动效
 ├── components/
-│   ├── charts/               # TrendChart（折线图）、CompareBars（条形排行）
-│   ├── layout/               # AppHeader、AppFooter、PageHeader
-│   ├── ui/                   # 10 个基础组件（卡片、标签页、弹窗、骨架屏…）
-│   └── weather/              # 7 个业务组件（实况卡、仪表盘、城市选择器…）
+│   ├── charts/               # TrendChart（折线图）
+│   ├── layout/               # AppHeader
+│   ├── ui/                   # 3 个基础组件（卡片、指标卡、标签页）
+│   └── weather/              # 6 个业务组件（实况卡、仪表盘、城市选择器…）
 ├── composables/              # useWeather / useLocalStorage / useCountUp / useMediaQuery / useToast
 ├── data/                     # cities / metrics / mock
 ├── directives/index.js       # v-reveal、v-click-outside

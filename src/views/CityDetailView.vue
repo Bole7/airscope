@@ -14,8 +14,6 @@ import ForecastStrip from '@/components/weather/ForecastStrip.vue'
 import FavoriteButton from '@/components/weather/FavoriteButton.vue'
 import BaseCard from '@/components/ui/BaseCard.vue'
 import BaseTabs from '@/components/ui/BaseTabs.vue'
-import EmptyState from '@/components/ui/EmptyState.vue'
-import BaseSkeleton from '@/components/ui/BaseSkeleton.vue'
 import TrendChart from '@/components/charts/TrendChart.vue'
 
 // 路由配置了 props: true，这里直接声明即可接收 /city/:id 的参数
@@ -84,11 +82,11 @@ const sunTimes = computed(() => {
 
 <template>
   <div v-if="!city" class="container">
-    <EmptyState title="没有找到这座城市" description="它可能不在当前支持的城市列表里。">
-      <template #action>
-        <RouterLink to="/compare" class="btn btn--ghost btn--sm">返回城市对比</RouterLink>
-      </template>
-    </EmptyState>
+    <div class="empty">
+      <p class="empty-title">没有找到这座城市</p>
+      <p class="empty-desc">它可能不在当前支持的城市列表里。</p>
+      <RouterLink to="/compare" class="btn btn--ghost btn--sm">返回城市对比</RouterLink>
+    </div>
   </div>
 
   <div v-else class="container">
@@ -144,7 +142,7 @@ const sunTimes = computed(() => {
           <BaseTabs v-model="chartMetric" :tabs="chartTabs" size="sm" />
         </template>
 
-        <BaseSkeleton v-if="loading && !data" width="100%" height="240px" radius="14px" />
+        <div v-if="loading && !data" class="skeleton" style="width: 100%; height: 240px; border-radius: 14px" />
         <TrendChart
           v-else
           :labels="chartData.labels"
@@ -156,7 +154,7 @@ const sunTimes = computed(() => {
       </BaseCard>
 
       <BaseCard title="污染物浓度" subtitle="数值为当前小时观测值">
-        <BaseSkeleton v-if="loading && !data" width="100%" height="180px" radius="14px" />
+        <div v-if="loading && !data" class="skeleton" style="width: 100%; height: 180px; border-radius: 14px" />
         <ul v-else class="pollutants">
           <li v-for="item in pollutants" :key="item.label">
             <span class="pollutant-name">{{ item.label }}</span>
@@ -164,14 +162,17 @@ const sunTimes = computed(() => {
             <span class="pollutant-unit">{{ item.unit }}</span>
           </li>
         </ul>
-        <EmptyState v-if="!loading && !pollutants.length" title="暂无空气质量数据" description="该城市当前没有返回污染物监测值。" />
+        <div v-if="!loading && !pollutants.length" class="empty">
+          <p class="empty-title">暂无空气质量数据</p>
+          <p class="empty-desc">该城市当前没有返回污染物监测值。</p>
+        </div>
       </BaseCard>
     </section>
 
     <section class="section--tight">
       <BaseCard title="未来 7 天" subtitle="温度区间条越长，昼夜温差越大">
         <ForecastStrip v-if="data?.daily" :days="data.daily" />
-        <BaseSkeleton v-else width="100%" height="120px" radius="14px" />
+        <div v-else class="skeleton" style="width: 100%; height: 120px; border-radius: 14px" />
       </BaseCard>
     </section>
 

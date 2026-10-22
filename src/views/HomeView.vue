@@ -14,8 +14,6 @@ import ForecastStrip from '@/components/weather/ForecastStrip.vue'
 import FavoriteButton from '@/components/weather/FavoriteButton.vue'
 import StatCard from '@/components/ui/StatCard.vue'
 import BaseCard from '@/components/ui/BaseCard.vue'
-import BaseSkeleton from '@/components/ui/BaseSkeleton.vue'
-import EmptyState from '@/components/ui/EmptyState.vue'
 import TrendChart from '@/components/charts/TrendChart.vue'
 
 const cityStore = useCityStore()
@@ -94,7 +92,7 @@ function refresh() {
 
         <ul class="hero-meta">
           <li><strong>5</strong><span>页面路由</span></li>
-          <li><strong>28</strong><span>组件</span></li>
+          <li><strong>17</strong><span>组件</span></li>
           <li><strong>6</strong><span>可切换指标</span></li>
         </ul>
       </div>
@@ -182,7 +180,7 @@ function refresh() {
             <span class="tag">逐小时</span>
           </template>
 
-          <BaseSkeleton v-if="loading && !data" width="100%" height="260px" radius="14px" />
+          <div v-if="loading && !data" class="skeleton" style="width: 100%; height: 260px; border-radius: 14px" />
           <TrendChart
             v-else
             :labels="tempWindow.labels"
@@ -231,7 +229,10 @@ function refresh() {
         </template>
 
         <ForecastStrip v-if="data?.daily" :days="data.daily" />
-        <EmptyState v-else title="正在获取预报" description="数据加载完成后这里会自动出现 7 天温度区间。" />
+        <div v-else class="empty">
+          <p class="empty-title">正在获取预报</p>
+          <p class="empty-desc">数据加载完成后这里会自动出现 7 天温度区间。</p>
+        </div>
       </BaseCard>
     </section>
 
@@ -264,11 +265,10 @@ function refresh() {
         </TransitionGroup>
       </div>
 
-      <EmptyState
-        v-else
-        title="还没有收藏城市"
-        description="在城市选择器或对比页点击星标，就能把常看的城市固定在这里。"
-      />
+      <div v-else class="empty">
+        <p class="empty-title">还没有收藏城市</p>
+        <p class="empty-desc">在城市选择器或对比页点击星标，就能把常看的城市固定在这里。</p>
+      </div>
     </section>
 
     <!-- ============ 底部引导 ============ -->

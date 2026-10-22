@@ -1,5 +1,5 @@
 <script setup>
-import { computed, defineAsyncComponent } from 'vue'
+import { computed, defineAsyncComponent, h } from 'vue'
 import { useCityStore } from '@/stores/city'
 import { useTrendStore } from '@/stores/trend'
 import { useWeather } from '@/composables/useWeather'
@@ -8,17 +8,22 @@ import { METRICS, RANGES, findMetric } from '@/data/metrics'
 import { buildWindow, summarize } from '@/utils/series'
 import { round } from '@/utils/format'
 
-import PageHeader from '@/components/layout/PageHeader.vue'
 import BaseCard from '@/components/ui/BaseCard.vue'
 import BaseTabs from '@/components/ui/BaseTabs.vue'
 import StatCard from '@/components/ui/StatCard.vue'
 import CityPicker from '@/components/weather/CityPicker.vue'
-import ChartSkeleton from '@/components/ui/ChartSkeleton.vue'
+
+// 异步组件的加载占位：用函数式组件写，不必再多开一个 SFC
+const ChartPlaceholder = () =>
+  h('div', { class: 'chart-placeholder' }, [
+    h('div', { class: 'skeleton', style: 'width: 120px; height: 12px; margin-bottom: 14px' }),
+    h('div', { class: 'skeleton', style: 'width: 100%; height: 260px; border-radius: 14px' }),
+  ])
 
 // 异步组件：图表代码单独分包，加载时先显示骨架屏
 const TrendChart = defineAsyncComponent({
   loader: () => import('@/components/charts/TrendChart.vue'),
-  loadingComponent: ChartSkeleton,
+  loadingComponent: ChartPlaceholder,
   delay: 150,
   timeout: 10000,
 })
@@ -89,16 +94,19 @@ function exportCsv() {
 
 <template>
   <div class="container">
-    <PageHeader
-      eyebrow="Trend"
-      title="一条曲线，读出城市的节律"
-      description="切换指标与时间范围，观察温度、湿度、风速和空气质量的起伏。图表是手写 SVG，不依赖任何图表库。"
-    >
-      <template #actions>
+    <header class="page-header">
+      <div class="page-header-text">
+        <p class="eyebrow">Trend</p>
+        <h1>一条曲线，读出城市的节律</h1>
+        <p class="description">
+          切换指标与时间范围，观察温度、湿度、风速和空气质量的起伏。图表是手写 SVG，不依赖任何图表库。
+        </p>
+      </div>
+      <div class="page-header-actions">
         <button type="button" class="btn btn--ghost btn--sm" @click="exportCsv">导出 CSV</button>
         <button type="button" class="btn btn--primary btn--sm" @click="reload">刷新数据</button>
-      </template>
-    </PageHeader>
+      </div>
+    </header>
 
     <BaseCard class="controls">
       <div class="control-row">
@@ -134,7 +142,8 @@ function exportCsv() {
         <p v-if="error" class="inline-notice">{{ error }}</p>
 
         <div v-if="loading && !data" class="chart-placeholder">
-          <ChartSkeleton />
+          <div class="skeleton" style="width: 120px; height: 12px; margin-bottom: 14px" />
+          <div class="skeleton" style="width: 100%; height: 300px; border-radius: 14px" />
         </div>
         <TrendChart
           v-else
