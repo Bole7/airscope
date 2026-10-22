@@ -1,0 +1,21 @@
+{
+  "name": "airscope",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "AirScope · 城市空气与气象数据可视化平台（Vue 3 前端实验项目）",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "pinia": "^4.1.0",
+    "vue": "^3.5.44",
+    "vue-router": "^5.4.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.10",
+    "vite": "^8.3.5"
+  }
+}

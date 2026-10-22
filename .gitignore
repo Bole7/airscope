@@ -1,0 +1,27 @@
+# 依赖与构建产物
+node_modules/
+dist/
+dist-ssr/
+
+# 课程材料：实验报告含姓名与学号，不进入公开仓库
+*.docx
+~$*.docx
+
+# 本地工具、截图与云端发布标记
+.workbuddy/
+.wbapp_*.genie
+
+# 压缩包
+*.zip
+
+# 编辑器与系统
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+
+# 日志与本地配置
+*.log
+*.local
+npm-debug.log*
