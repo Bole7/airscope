@@ -298,7 +298,7 @@ const talkOutline = [
     </section>
 
     <section class="section--tight">
-      <h2 class="block-title">5 分钟讲解路径</h2>
+      <h2 class="block-title">路径讲解</h2>
       <div class="talk-grid">
         <div v-for="item in talkOutline" :key="item.step" class="talk-item card">
           <span class="talk-step">{{ item.step }}</span>
