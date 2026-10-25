@@ -3,7 +3,9 @@
 Web 全栈开发课程实验项目。纯前端实现，使用 Vue 3 + Vite + Vue Router + Pinia，
 数据来自 Open-Meteo 公开接口（免密钥），图表全部用 SVG 手写，不依赖任何图表库。
 
-**线上地址**：https://airscope-weather.app.workbuddy.host/?sharecode=3GDMTATPWR
+**线上地址**
+- GitHub Pages：https://bole7.github.io/airscope/
+- 云托管备用：https://airscope-weather.app.workbuddy.host/?sharecode=3GDMTATPWR
 
 ---
 
@@ -79,9 +81,13 @@ src/
 
 `netlify.toml` 与 `public/_redirects` 已配置 history fallback，刷新 `/compare` 不会 404。
 
-### GitHub Pages
+### GitHub Pages（已配置自动部署）
 
-把 `vite.config.js` 的 `base` 改成 `'/仓库名/'`，构建后把 `dist` 推到 `gh-pages` 分支即可。
+推送到 `main` 后，GitHub Actions 会自动构建并发布到 https://bole7.github.io/airscope/ 。
+
+- 子路径构建命令：`npm run build:pages`（等价于 `vite build --base=/airscope/`）
+- 工作流位于 `.github/workflows/deploy.yml`
+- 构建时会复制 `index.html` 为 `404.html` 并生成 `.nojekyll`，保证子路由刷新不白屏、下划线开头的 chunk 不被忽略
 
 ## 说明
 
