@@ -52,7 +52,6 @@ const activeName = computed(() => (route.name === 'city-detail' ? 'compare' : ro
 
       <div class="header-meta">
         <span class="live-chip">
-          <span class="dot" />
           <span>Open-Meteo 实时数据</span>
         </span>
       </div>

@@ -78,12 +78,7 @@ function refresh() {
     <!-- ============ 首屏 ============ -->
     <section class="hero container">
       <div class="hero-copy">
-        <p class="eyebrow">Web 全栈开发实验 · Vue 3 单页应用</p>
         <h1>看见一座城市的<br /><em>呼吸与温度</em></h1>
-        <p class="hero-desc">
-          温度、湿度、风力与空气质量，全部来自开放气象接口。切换城市、悬停曲线、翻动 7 天预报——
-          你看到的每个数字，都能在源码里找到它走过的路。
-        </p>
 
         <div class="hero-actions">
           <RouterLink to="/trend" class="btn btn--primary">查看趋势分析 →</RouterLink>
@@ -303,18 +298,10 @@ h1 em {
   color: transparent;
 }
 
-.hero-desc {
-  margin-top: 18px;
-  max-width: 460px;
-  color: var(--text-2);
-  font-size: 0.97rem;
-  line-height: 1.75;
-}
-
 .hero-actions {
   display: flex;
   gap: 10px;
-  margin-top: 26px;
+  margin-top: 32px;
   flex-wrap: wrap;
 }
 

@@ -234,14 +234,6 @@ ul {
   color: #0b7d73;
 }
 
-.dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--green);
-  box-shadow: 0 0 0 3px rgba(47, 163, 107, 0.16);
-}
-
 /* ---------- 卡片 ---------- */
 .card {
   background: var(--surface);
