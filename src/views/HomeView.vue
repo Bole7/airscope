@@ -230,54 +230,6 @@ function refresh() {
         </div>
       </BaseCard>
     </section>
-
-    <!-- ============ 收藏城市 ============ -->
-    <section class="container section--tight">
-      <div class="section-head">
-        <div>
-          <p class="eyebrow">收藏夹</p>
-          <h2>常看的城市</h2>
-        </div>
-        <RouterLink to="/compare" class="link-more">全部城市 →</RouterLink>
-      </div>
-
-      <div v-if="cityStore.favoriteCities.length" class="grid grid--3">
-        <TransitionGroup name="list">
-          <RouterLink
-            v-for="city in cityStore.favoriteCities"
-            :key="city.id"
-            :to="`/city/${city.id}`"
-            class="city-tile card card--hover"
-          >
-            <div class="city-tile-top">
-              <span class="city-avatar">{{ city.name.slice(0, 1) }}</span>
-              <span class="tag tag--accent">{{ city.tag }}</span>
-            </div>
-            <h3>{{ city.name }}</h3>
-            <p class="muted text-sm">{{ city.province }} · 查看 24 小时曲线与空气质量</p>
-            <span class="tile-arrow">→</span>
-          </RouterLink>
-        </TransitionGroup>
-      </div>
-
-      <div v-else class="empty">
-        <p class="empty-title">还没有收藏城市</p>
-        <p class="empty-desc">在城市选择器或对比页点击星标，就能把常看的城市固定在这里。</p>
-      </div>
-    </section>
-
-    <!-- ============ 底部引导 ============ -->
-    <section class="container section--tight">
-      <div class="cta">
-        <div>
-          <h2>这个网站是怎么搭起来的？</h2>
-          <p class="text-2 sm muted">
-            路由懒加载、Pinia 状态管理、组合式函数、自定义指令、纯 SVG 图表——关于页里有一张完整的代码地图。
-          </p>
-        </div>
-        <RouterLink to="/about" class="btn btn--accent">查看代码地图 →</RouterLink>
-      </div>
-    </section>
   </div>
 </template>
 
@@ -448,18 +400,6 @@ h1 em {
   margin-left: auto;
 }
 
-.section-head {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 18px;
-}
-
-.section-head h2 {
-  margin-top: 6px;
-}
-
 .link-more {
   font-size: 0.82rem;
   color: var(--accent);
@@ -470,83 +410,6 @@ h1 em {
   text-decoration: underline;
 }
 
-.city-tile {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding: 20px;
-}
-
-.city-tile-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 4px;
-}
-
-.city-avatar {
-  display: grid;
-  place-items: center;
-  width: 34px;
-  height: 34px;
-  border-radius: 11px;
-  background: var(--accent-soft);
-  color: var(--accent-strong);
-  font-weight: 620;
-}
-
-.city-tile h3 {
-  font-size: 1.12rem;
-}
-
-.tile-arrow {
-  position: absolute;
-  right: 20px;
-  bottom: 18px;
-  color: var(--border-strong);
-  transition: color 0.2s ease, transform 0.2s ease;
-}
-
-.city-tile:hover .tile-arrow {
-  color: var(--accent);
-  transform: translateX(3px);
-}
-
-.cta {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-  padding: 30px 32px;
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--border);
-  background:
-    radial-gradient(500px 200px at 88% 0%, rgba(47, 111, 237, 0.14), transparent 70%),
-    linear-gradient(120deg, #ffffff, #f6faff);
-  box-shadow: var(--shadow-sm);
-}
-
-.cta h2 {
-  font-size: 1.35rem;
-}
-
-.cta p {
-  margin-top: 6px;
-  max-width: 560px;
-}
-
-.list-enter-active,
-.list-leave-active {
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.list-enter-from,
-.list-leave-to {
-  opacity: 0;
-  transform: translateY(10px);
-}
-
 @media (max-width: 980px) {
   .hero {
     grid-template-columns: minmax(0, 1fr);
@@ -555,14 +418,6 @@ h1 em {
   }
   .hero-meta {
     gap: 26px;
-  }
-}
-
-@media (max-width: 720px) {
-  .cta {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 24px;
   }
 }
 </style>
