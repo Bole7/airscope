@@ -97,7 +97,6 @@ function exportCsv() {
     <header class="page-header">
       <div class="page-header-text">
         <p class="eyebrow">Trend</p>
-        <h1>一条曲线，读出城市的节律</h1>
         <p class="description">
           切换指标与时间范围，观察温度、湿度、风速和空气质量的起伏。图表是手写 SVG，不依赖任何图表库。
         </p>

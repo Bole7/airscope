@@ -176,7 +176,6 @@ function refreshAll() {
     <header class="page-header">
       <div class="page-header-text">
         <p class="eyebrow">Compare</p>
-        <h1>八座城市，同一时刻</h1>
         <p class="description">
           同一套观测标准下横向对比温度、湿度、风速与空气质量。点击表头可以排序，星标可以把城市固定到收藏夹。
         </p>
