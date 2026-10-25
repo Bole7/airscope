@@ -78,7 +78,7 @@ function refresh() {
     <!-- ============ 首屏 ============ -->
     <section class="hero container">
       <div class="hero-copy">
-        <h1>看见一座城市的<br /><em>呼吸与温度</em></h1>
+        <h1>城市空气<em>与气象</em></h1>
 
         <div class="hero-actions">
           <RouterLink to="/trend" class="btn btn--primary">查看趋势分析 →</RouterLink>
