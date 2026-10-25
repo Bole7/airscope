@@ -6,6 +6,7 @@ import vue from '@vitejs/plugin-vue'
 const port = Number(process.env.PORT) || 5173
 
 // Vite 配置：Vue 单文件组件插件 + @ 路径别名
+// GitHub Pages 的 /airscope/ 子路径通过 `npm run build:pages` 传入，默认仍是 /
 export default defineConfig({
   plugins: [vue()],
   base: '/',
