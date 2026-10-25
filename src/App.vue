@@ -72,7 +72,6 @@ const toastIcons = {
           <a href="https://open-meteo.com/" target="_blank" rel="noreferrer">Open-Meteo 开放气象接口</a>
           <a href="https://cn.vuejs.org/" target="_blank" rel="noreferrer">Vue 3 官方文档</a>
           <a href="https://cn.vitejs.dev/" target="_blank" rel="noreferrer">Vite 构建工具</a>
-          <span class="muted">AQI 采用 US AQI 标准</span>
         </div>
       </div>
 
